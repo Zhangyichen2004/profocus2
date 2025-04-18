@@ -55,16 +55,17 @@ app.use((req, res, next) => {
 // View engine
 app.set('view engine', 'ejs');
 
+// Add a simple root route for testing
+app.get('/', (req, res) => {
+    res.send('Welcome to ProFocus2');
+});
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/goals', require('./routes/goals'));
 app.use('/analytics-data', require('./routes/analytics'));
 
-// Add a simple root route for testing
-app.get('/', (req, res) => {
-    res.send('Welcome to ProFocus2');
-});
+
 
 // Error handling
 app.use((req, res) => {
