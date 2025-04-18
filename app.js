@@ -59,8 +59,12 @@ app.set('view engine', 'ejs');
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/goals', require('./routes/goals'));
-//app.use('/analytics', require('./routes/analytics')); // Add analytics routes
 app.use('/analytics-data', require('./routes/analytics'));
+
+// Add a simple root route for testing
+app.get('/', (req, res) => {
+    res.send('Welcome to ProFocus2');
+});
 
 // Error handling
 app.use((req, res) => {
@@ -80,6 +84,6 @@ app.use((err, req, res, next) => {
 
 // Start server
 const PORT = process.env.PORT || 3001;
-app.listen(3001, () => {
-    console.log(`Server running on port 3001`);
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
