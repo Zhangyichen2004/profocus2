@@ -5,7 +5,7 @@ const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const path = require('path');
 require('dotenv').config();
-const RedisStore = require('connect-redis'); // 直接导入类
+const connectRedis = require('connect-redis'); // 直接导入模块
 const redis = require('redis');
 
 // Initialize Express app
