@@ -7,6 +7,7 @@ const path = require('path');
 require('dotenv').config();
 const RedisStore = require('connect-redis')(session);
 const redis = require('redis');
+
 // Initialize Express app
 const app = express();
 
