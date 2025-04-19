@@ -34,7 +34,7 @@ if (!redisClient.isOpen) {
 }
 // 配置 session
 app.use(session({
-    store: new RedisStore({ client: redisClient }), // 直接使用类
+    //store: new RedisStore({ client: redisClient }), // 直接使用类
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: true,
