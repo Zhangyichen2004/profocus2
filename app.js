@@ -5,7 +5,8 @@ const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const path = require('path');
 require('dotenv').config();
-
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
 // Initialize Express app
 const app = express();
 
@@ -16,8 +17,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
-// Session configuration
+// 创建 Redis 客户端
+const redisClient = redis.createClient({
+    url: process.env.REDIS_URL || 'redis://localhost:6379'
+});
+
+redisClient.on('error', (err) => console.log('Redis Client Error', err));
+redisClient.connect().catch(console.error);
+
+// 配置 session
 app.use(session({
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: true,
