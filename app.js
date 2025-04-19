@@ -54,6 +54,7 @@ app.use((req, res, next) => {
 
 // View engine
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Add a simple root route for testing
 //app.get('/', (req, res) => {
