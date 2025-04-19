@@ -7,14 +7,7 @@ const path = require('path');
 require('dotenv').config();
 const connectRedis = require('connect-redis'); // 直接导入模块
 const redis = require('redis');
-const cookieSession = require('cookie-session');
 
-// 配置 cookie-session
-app.use(cookieSession({
-    name: 'session',
-    keys: [process.env.SESSION_SECRET || 'your-secret-key'],
-    maxAge: 3600000 // 1 hour
-}));
 // Initialize Express app
 const app = express();
 
