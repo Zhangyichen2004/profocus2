@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to ProFocus2');
 });
 // Routes
-app.use('/', require('./routes/index'));
+//app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/goals', require('./routes/goals'));
 app.use('/analytics-data', require('./routes/analytics'));

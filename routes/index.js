@@ -1,4 +1,3 @@
-// routes/index.js
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
@@ -17,11 +16,6 @@ router.get('/dashboard', auth, goalController.getGoals);
 router.get('/timer', auth, goalController.getTimer);
 
 // Analytics page - redirect to the dedicated analytics route
-/*router.get('/analytics', auth, (req, res) => {
-    res.redirect('/analytics');
-});*/
-
-// routes/index.js
 router.get('/analytics', auth, (req, res) => {
     res.redirect('/analytics-data');
 });
