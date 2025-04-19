@@ -5,7 +5,7 @@ const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const path = require('path');
 require('dotenv').config();
-const RedisStore = require('connect-redis')(session);
+const RedisStore = require('connect-redis'); // 直接导入类
 const redis = require('redis');
 
 // Initialize Express app
@@ -28,7 +28,7 @@ redisClient.connect().catch(console.error);
 
 // 配置 session
 app.use(session({
-    store: new RedisStore({ client: redisClient }),
+    store: new RedisStore({ client: redisClient }), // 直接使用类
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: true,
