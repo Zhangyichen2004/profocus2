@@ -69,9 +69,15 @@ app.use('/analytics-data', require('./routes/analytics'));
 
 // Error handling
 app.use((req, res) => {
+    console.log('404 Error: Page not found for URL:', req.originalUrl);
     res.status(404).render('error', {
         title: '404 Not Found',
         message: 'The page you are looking for does not exist.'
+    }, (err) => {
+        if (err) {
+            console.error('Error rendering error page:', err);
+            res.status(404).send('404 Not Found - Error page failed to render');
+        }
     });
 });
 
@@ -79,10 +85,14 @@ app.use((err, req, res, next) => {
     console.error('Server error:', err.stack);
     res.status(500).render('error', {
         title: '500 Server Error',
-        message: 'Something went wrong on our end.'
+        message: 'Something went wrong on our end: ' + err.message
+    }, (err) => {
+        if (err) {
+            console.error('Error rendering error page:', err);
+            res.status(500).send('500 Server Error - Error page failed to render');
+        }
     });
 });
-
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
