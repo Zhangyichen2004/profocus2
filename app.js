@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
-
+console.log('REDIS_URL:', process.env.REDIS_URL);
 // 创建 Redis 客户端
 const redisClient = redis.createClient({
     url: process.env.REDIS_URL || 'redis://localhost:6379'
@@ -28,10 +28,13 @@ redisClient.on('ready', () => console.log('Redis Client Ready'));
 redisClient.connect().catch(err => console.error('Redis Connect Error:', err.message));
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 redisClient.connect().catch(console.error);
-
+// 确保只连接一次
+if (!redisClient.isOpen) {
+    redisClient.connect().catch(err => console.error('Redis Connect Error:', err.message));
+}
 // 配置 session
 app.use(session({
-    //store: new RedisStore({ client: redisClient }), // 直接使用类
+    store: new RedisStore({ client: redisClient }), // 直接使用类
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
     saveUninitialized: true,
