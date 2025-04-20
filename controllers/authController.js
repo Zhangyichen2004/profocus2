@@ -76,7 +76,7 @@ exports.register = async (req, res) => {
 
         console.log('User registered successfully, user ID:', result.insertId);
         req.flash('success_msg', 'You are now registered and can log in');
-        return res.redirect(302, '/auth/login');
+        return res.json({ success: true, redirect: '/auth/login' });
     } catch (err) {
         console.error('Registration error:', err);
         req.flash('error_msg', 'Server error, please try again later');
